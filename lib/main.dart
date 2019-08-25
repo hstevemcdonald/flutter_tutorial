@@ -50,6 +50,15 @@ class _State extends State<MyApp> {
     );
   }
 
+  Future _showDialog(BuildContext context, String message) async {
+    return showDialog(
+    context: context,
+    child: new Dialog(
+      child: new Text(message)
+    ));
+  }
+
+
   // aka 'Toast'
   void _showSnackBar() {
     _scaffoldstate.currentState.showSnackBar(
@@ -217,6 +226,14 @@ class _State extends State<MyApp> {
         child: new Center(
           child: new Column(
             children: <Widget>[
+
+              // button to show alert
+              new RaisedButton(
+                onPressed: () => _showAlert( context, 'This is an example of a simple dialog!'),
+                child: Text('Show Dialog'),
+              ),
+              makeDivider(),
+
 
               // button to show alert
               new RaisedButton(
