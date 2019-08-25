@@ -38,6 +38,18 @@ class _State extends State<MyApp> {
     _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.message), title: new Text('Message')));
   }
 
+  Future _showAlert(BuildContext context, String message) async {
+    return showDialog(
+    context: context,
+    child: new AlertDialog(
+      title: new Text(message),
+      actions: <Widget>[
+        // we use flatbutton to keep it flush and looking like an alert, but technically it could be any type of widget
+        new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('Ok'))
+      ],)
+    );
+  }
+
   // aka 'Toast'
   void _showSnackBar() {
     _scaffoldstate.currentState.showSnackBar(
@@ -53,6 +65,7 @@ class _State extends State<MyApp> {
     );
   }
 
+  // show bottomSheets   
   void _showBottom() {
     showModalBottomSheet<void>(
       context: context, 
@@ -205,7 +218,14 @@ class _State extends State<MyApp> {
           child: new Column(
             children: <Widget>[
 
-              // button to show snackbar
+              // button to show alert
+              new RaisedButton(
+                onPressed: () => _showAlert( context, 'This is an example of an alert!'),
+                child: Text('Show Alert'),
+              ),
+              makeDivider(),
+
+              // button to show snackbar/toast
               new RaisedButton(
                 onPressed: _showSnackBar,
                 child: Text('Show SnackBar'),
