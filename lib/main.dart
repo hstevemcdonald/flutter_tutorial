@@ -13,7 +13,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _State extends State<MyApp> {
-  @override
 
   String _text = 'Hello World!!!';
   bool _checkbox = false;
@@ -25,6 +24,8 @@ class _State extends State<MyApp> {
   String _date = '';
   String _fab = '';
   String _appBarTitle = 'Flutter! ';
+
+  @override
 
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
@@ -136,6 +137,10 @@ class _State extends State<MyApp> {
           new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract)
         ],
       ),
+      persistentFooterButtons: <Widget>[
+          new IconButton(icon: new Icon(Icons.add),  onPressed: _add),
+          new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract)
+      ],
       floatingActionButton: new FloatingActionButton(
         onPressed: _onCLickFAB,
         backgroundColor: Colors.blue,
