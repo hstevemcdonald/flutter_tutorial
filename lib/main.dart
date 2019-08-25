@@ -120,7 +120,12 @@ class _State extends State<MyApp> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Name here")
+        title: new Text("Name here " + _sum.toString()),
+        backgroundColor: Colors.blue,
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.add), onPressed: _add),
+          new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract)
+        ],
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
