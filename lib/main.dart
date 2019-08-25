@@ -142,6 +142,14 @@ class _State extends State<MyApp> {
         mini: true, 
         child: new Icon(Icons.timer),
       ),
+      drawer: new Drawer(
+        child: new Container(
+          padding: new EdgeInsets.all(32.00), 
+          child: new Column(
+            children: <Widget>[
+              new Text('Menu'), 
+              new RaisedButton(onPressed: () => Navigator.pop(context), child: new Text('Close Menu'))
+      ],),),),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
