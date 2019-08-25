@@ -23,6 +23,8 @@ class _State extends State<MyApp> {
   int _radio1 = 0;
   double _slider = 0.0;
   String _date = '';
+  String _fab = '';
+  String _appBarTitle = 'Flutter! ';
 
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
@@ -36,6 +38,13 @@ class _State extends State<MyApp> {
        _date = picked.toString(); 
       });
     }
+  }
+
+  void _onCLickFAB() {
+    setState(() {
+      DateTime dateTime = new DateTime.now();
+      _fab = dateTime.second.toString();
+    });
   }
 
   void _onChangeRadio(int value) {
@@ -120,12 +129,18 @@ class _State extends State<MyApp> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Name here " + _sum.toString()),
+        title: new Text(_appBarTitle + ' ' + _sum.toString() + ' ' + _fab),
         backgroundColor: Colors.blue,
         actions: <Widget>[
           new IconButton(icon: new Icon(Icons.add), onPressed: _add),
           new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract)
         ],
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: _onCLickFAB,
+        backgroundColor: Colors.blue,
+        mini: true, 
+        child: new Icon(Icons.timer),
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
