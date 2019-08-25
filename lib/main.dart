@@ -25,7 +25,16 @@ class _State extends State<MyApp> {
   String _fab = '';
   String _appBarTitle = 'Flutter! ';
 
+  List<BottomNavigationBarItem> _items;
+  int _bottomNavIndex = 0;
+
   @override
+  void initState() {
+    _items = new List();
+    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.people), title: new Text('People')));
+    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.weekend), title: new Text('Weekend')));
+    _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.message), title: new Text('Message')));
+  }
 
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
@@ -130,7 +139,7 @@ class _State extends State<MyApp> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(_appBarTitle + ' ' + _sum.toString() + ' ' + _fab),
+        title: new Text(_appBarTitle + ' ' + _sum.toString() + ' ' + _fab + ' ' + _bottomNavIndex.toString()),
         backgroundColor: Colors.blue,
         actions: <Widget>[
           new IconButton(icon: new Icon(Icons.add), onPressed: _add),
@@ -219,7 +228,16 @@ class _State extends State<MyApp> {
           ]
         )
       )
-    )
+    ),
+    bottomNavigationBar: new BottomNavigationBar(
+      items: _items, 
+      fixedColor: Colors.blue, 
+      currentIndex: _bottomNavIndex,
+      onTap: (int item) {
+        setState(() {
+          _bottomNavIndex = item;
+        });
+    },),
   );
   }
 }
