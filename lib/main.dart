@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(new MaterialApp(
@@ -21,6 +22,21 @@ class _State extends State<MyApp> {
   bool _combo = false;
   int _radio1 = 0;
   double _slider = 0.0;
+  String _date = '';
+
+  Future _selectDate() async {
+    DateTime picked = await showDatePicker(
+      context: context, 
+      initialDate: new DateTime.now(),
+      firstDate: new DateTime(2015),
+      lastDate: new DateTime(2020)
+    );
+    if (picked != null) {
+      setState(() {
+       _date = picked.toString(); 
+      });
+    }
+  }
 
   void _onChangeRadio(int value) {
     setState(() {
@@ -145,9 +161,14 @@ class _State extends State<MyApp> {
               new CheckboxListTile(value: _checkbox, onChanged: _onCheckboxChanged, title: new Text('Checkbox'), secondary: new Icon(Icons.archive), activeColor: Colors.red,),
               makeDivider(),
 
-                // example of Slider
+              // example of Slider
               new Text('Slider Value: ${(_slider * 100).round()}'),
               new Slider(value: _slider, onChanged: _onChangeSlider),
+              makeDivider(),
+
+              // example of DatePicker
+              new Text('DatePicker Value: ' + _date),
+              new RaisedButton(onPressed: () =>  _selectDate(), child: new Text('Select a date'),),
               makeDivider(),
 
               // example of Radios - note a function is returning the widget that is generated dynamically
