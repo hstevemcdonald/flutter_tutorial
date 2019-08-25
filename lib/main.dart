@@ -20,10 +20,17 @@ class _State extends State<MyApp> {
   String _submitText = '';
   bool _combo = false;
   int _radio1 = 0;
+  double _slider = 0.0;
 
-  void _setRadio(int value) {
+  void _onChangeRadio(int value) {
     setState(() {
       _radio1 = value;
+    });
+  }
+
+  void _onChangeSlider(double value) {
+    setState(() {
+      _slider = value;
     });
   }
 
@@ -83,7 +90,7 @@ class _State extends State<MyApp> {
         new RadioListTile(
           value: i, 
           groupValue: _radio1, 
-          onChanged: _setRadio, 
+          onChanged: _onChangeRadio, 
           activeColor: Colors.greenAccent,
           title: new Text('Item ${i}'),
           subtitle: new Text('sub title ${i}'),
@@ -136,6 +143,11 @@ class _State extends State<MyApp> {
               // example of CheckBox
               // new Checkbox(value: _checkbox, onChanged: _onCheckboxChanged),
               new CheckboxListTile(value: _checkbox, onChanged: _onCheckboxChanged, title: new Text('Checkbox'), secondary: new Icon(Icons.archive), activeColor: Colors.red,),
+              makeDivider(),
+
+                // example of Slider
+              new Text('Slider Value: ${(_slider * 100).round()}'),
+              new Slider(value: _slider, onChanged: _onChangeSlider),
               makeDivider(),
 
               // example of Radios - note a function is returning the widget that is generated dynamically
