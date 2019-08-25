@@ -36,6 +36,23 @@ class _State extends State<MyApp> {
     _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.message), title: new Text('Message')));
   }
 
+  void _showBottom() {
+    showModalBottomSheet<void>(
+      context: context, 
+      builder: (BuildContext context) {
+        return new Container(
+        padding: new EdgeInsets.all(15.0),
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center, 
+          children: <Widget> [
+            new Text('I am a bottomSheet!  ', style: new TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+            new RaisedButton(onPressed: () => Navigator.pop(context), child: new Text('Close'))
+          ]
+        ));
+      }
+    );
+  }
+
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
       context: context, 
@@ -169,10 +186,16 @@ class _State extends State<MyApp> {
         child: new Center(
           child: new Column(
             children: <Widget>[
-              
+
+              // button to show modal
+              new RaisedButton(onPressed: _showBottom, child: new Text('Open bottomSheet'),),
+              makeDivider(),
+
               // plain ol text and example callbacks onPressed
               new Text(_text),
-              new Row(children: <Widget>[
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                children: <Widget>[
                   new RaisedButton(onPressed: () =>  _onPressed('1'), child: new Text('Click me'),),
                   new FlatButton(onPressed: () => _onPressed('2'), child: new Text('Click me'),),
               ],),
@@ -180,10 +203,13 @@ class _State extends State<MyApp> {
 
               // another example of callbacks on press of IconButton
               new Text(_sum.toString()),
-              new Row(children: <Widget>[
-                new IconButton(icon: new Icon(Icons.add), onPressed: _add),
-                new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract),
-              ]),
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                children: <Widget>[
+                  new IconButton(icon: new Icon(Icons.add), onPressed: _add),
+                  new IconButton(icon: new Icon(Icons.remove), onPressed: _subtract),
+                ]
+              ),
               makeDivider(),
 
               // example of TextField
