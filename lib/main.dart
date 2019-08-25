@@ -28,12 +28,29 @@ class _State extends State<MyApp> {
   List<BottomNavigationBarItem> _items;
   int _bottomNavIndex = 0;
 
+  final GlobalKey<ScaffoldState> _scaffoldstate = new GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     _items = new List();
     _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.people), title: new Text('People')));
     _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.weekend), title: new Text('Weekend')));
     _items.add(new BottomNavigationBarItem(icon: new Icon(Icons.message), title: new Text('Message')));
+  }
+
+  // aka 'Toast'
+  void _showSnackBar() {
+    _scaffoldstate.currentState.showSnackBar(
+      new SnackBar(
+        content: Text('Yay! A SnackBar!'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
+      )
+    );
   }
 
   void _showBottom() {
@@ -155,6 +172,7 @@ class _State extends State<MyApp> {
 
   Widget build(BuildContext context) {
     return new Scaffold(
+      key: _scaffoldstate,
       appBar: new AppBar(
         title: new Text(_appBarTitle + ' ' + _sum.toString() + ' ' + _fab + ' ' + _bottomNavIndex.toString()),
         backgroundColor: Colors.blue,
@@ -187,7 +205,14 @@ class _State extends State<MyApp> {
           child: new Column(
             children: <Widget>[
 
-              // button to show modal
+              // button to show snackbar
+              new RaisedButton(
+                onPressed: _showSnackBar,
+                child: Text('Show SnackBar'),
+              ),
+              makeDivider(),
+
+              // button to show bottomsheet
               new RaisedButton(onPressed: _showBottom, child: new Text('Open bottomSheet'),),
               makeDivider(),
 
